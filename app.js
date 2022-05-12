@@ -42,6 +42,9 @@ class QuizzApp {
     questionCounter = 0;
     availableQuestions = [];
     game;
+    $questionCounter;
+    $score;
+
 
     constructor() {
 
@@ -53,6 +56,8 @@ class QuizzApp {
             this.$question = document.getElementById("question");
             this.$choiceContainers = [...document.getElementsByClassName('choice-container')];
             this.$choices = [...document.getElementsByClassName("choice-text")];
+            this.$questionCounter = document.getElementById("questionCounter");
+            this.$score = document.getElementById("score");
             this.startGame();
             this.bindEvents();
         }
@@ -66,6 +71,7 @@ class QuizzApp {
                 if (!this.acceptingAnswers) return;
 
                 this.acceptingAnswers = false;
+
                 const selectedChoice = ev.currentTarget;
                 const selectedAnswer = selectedChoice.dataset['number'];
 
@@ -73,7 +79,9 @@ class QuizzApp {
 
                 const classToApply = +selectedAnswer === this.currentQuestion.answer ? 'correct' : 'incorrect';
 
-                console.log(classToApply);
+                if(classToApply === "correct") {
+                    this.incrementScore(CORRECT_BONUS);
+                }
 
                 ev.currentTarget.classList.add(classToApply);
                 setTimeout(() => {
@@ -99,6 +107,8 @@ class QuizzApp {
         }
         this.questionCounter++;
 
+        this.$questionCounter.innerText = `${this.questionCounter} / ${MAX_QUESTIONS}`;
+
         const questionIndex = Math.floor(Math.random() * this.availableQuestions.length);
         this.currentQuestion = this.availableQuestions[questionIndex];
         this.$question.innerText = this.currentQuestion.question;
@@ -114,7 +124,12 @@ class QuizzApp {
         console.log(this.availableQuestions);
 
         this.acceptingAnswers = true;
-      }
+    }
+
+    incrementScore(num) {
+        this.score = num;
+        this.$score.innerText = this.score;
+    }
   
 }
 

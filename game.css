@@ -1,3 +1,6 @@
+* {
+ border: 1px solid red;    
+}
 .choice-container {
     display: flex;
     margin-bottom: 0.4rem;
@@ -31,4 +34,22 @@
 
 .incorrect {
     background-color: #dc3545;
+}
+
+/* HUD */
+
+#hud {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8rem;
+    justify-content: space-around;
+  }
+  
+.hud-prefix {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.hud-main-text {
+    text-align: center;
 }
