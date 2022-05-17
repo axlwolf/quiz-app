@@ -1,5 +1,5 @@
 * {
- border: 1px solid red;    
+ /* border: 1px solid red;     */
 }
 .choice-container {
     display: flex;
@@ -52,4 +52,17 @@
 
 .hud-main-text {
     text-align: center;
+}
+
+#progressBar {
+    width: 20rem;
+    height: 4rem;
+    border: 0.3rem solid #56a5eb;
+    margin-top: 4.5rem;
+}
+
+#progressBar .progress-bar-full {
+    height: 3.4rem;
+    background-color: #56a5eb;
+    width: 0%;
 }

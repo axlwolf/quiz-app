@@ -44,6 +44,8 @@ class QuizzApp {
     game;
     $questionCounter;
     $score;
+    $progressText;
+    $progressBar;
 
 
     constructor() {
@@ -58,6 +60,8 @@ class QuizzApp {
             this.$choices = [...document.getElementsByClassName("choice-text")];
             this.$questionCounter = document.getElementById("questionCounter");
             this.$score = document.getElementById("score");
+            this.$progressText = document.getElementById("progressText");
+            this.$progressBar = document.getElementById("progressBarFull");
             this.startGame();
             this.bindEvents();
         }
@@ -84,6 +88,7 @@ class QuizzApp {
                 }
 
                 ev.currentTarget.classList.add(classToApply);
+
                 setTimeout(() => {
                     $option.classList.remove(classToApply);
                     this.getNewQuestion();
@@ -103,11 +108,15 @@ class QuizzApp {
         if (this.availableQuestions.length === 0 || this.questionCounter > MAX_QUESTIONS) {
             // Go to the end page
             return window.location.assign('/end.html');
-
         }
+        
         this.questionCounter++;
 
-        this.$questionCounter.innerText = `${this.questionCounter} / ${MAX_QUESTIONS}`;
+        this.$progressText.innerText = `Question ${this.questionCounter} / ${MAX_QUESTIONS}`;
+
+        // Update the progress bar
+        console.log(this.questionCounter / MAX_QUESTIONS);
+        this.$progressBar.style.width = `${(this.questionCounter / MAX_QUESTIONS)*100}%`;
 
         const questionIndex = Math.floor(Math.random() * this.availableQuestions.length);
         this.currentQuestion = this.availableQuestions[questionIndex];
